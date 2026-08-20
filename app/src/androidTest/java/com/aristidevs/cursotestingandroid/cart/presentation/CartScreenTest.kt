@@ -36,6 +36,7 @@ class CartScreenTest {
         onIncreaseQuantity: (String, Int) -> Unit = { _, _ -> },
         onDecreaseQuantity: (String, Int) -> Unit = { _, _ -> },
         onRemove: (String) -> Unit = {},
+        navigateToCheckout: () -> Unit = {}
     ) {
         composeRule.setContent {
             CartContent(
@@ -45,6 +46,7 @@ class CartScreenTest {
                 onRemove = onRemove,
                 onDecreaseQuantity = onDecreaseQuantity,
                 onIncreaseQuantity = onIncreaseQuantity,
+                navigateToCheckout = navigateToCheckout
             )
         }
     }
