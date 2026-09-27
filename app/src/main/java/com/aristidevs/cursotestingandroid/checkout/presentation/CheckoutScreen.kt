@@ -22,10 +22,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.aristidevs.cursotestingandroid.core.presentation.components.MarketTopAppBar
+import com.aristidevs.cursotestingandroid.core.presentation.testing.UiTestTag.CHECKOUT_CONFIRM_BUTTON
+import com.aristidevs.cursotestingandroid.core.presentation.testing.UiTestTag.CHECKOUT_LOADING
+import com.aristidevs.cursotestingandroid.core.presentation.testing.UiTestTag.CHECKOUT_RETRY_BUTTON
+import com.aristidevs.cursotestingandroid.core.presentation.testing.UiTestTag.checkoutConfirmationOrder
+import com.aristidevs.cursotestingandroid.core.presentation.testing.UiTestTag.checkoutConfirmationTime
+import com.aristidevs.cursotestingandroid.core.presentation.testing.UiTestTag.checkoutConfirmationTotal
 
 @Composable
 fun CheckoutScreen(
@@ -78,7 +85,7 @@ fun CheckoutContent(
         ) {
             when (uiState) {
                 CheckoutUiState.Loading -> {
-                    CircularProgressIndicator()
+                    CircularProgressIndicator(modifier = Modifier.testTag(CHECKOUT_LOADING))
                 }
 
                 is CheckoutUiState.Error -> {
@@ -90,7 +97,9 @@ fun CheckoutContent(
                         verticalArrangement = Arrangement.Center
                     ) {
                         Text(uiState.message)
-                        Button(onClick = { onRetry() }) {
+                        Button(
+                            modifier = Modifier.testTag(CHECKOUT_RETRY_BUTTON),
+                            onClick = { onRetry() }) {
                             Text("Reintentar")
                         }
                     }
@@ -104,9 +113,18 @@ fun CheckoutContent(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
-                        Text("Pedido confirmado: ${uiState.confirmation.orderId}")
-                        Text("Tiempo estimado: ${uiState.confirmation.etaMinutes}")
-                        Text("Precio: ${uiState.confirmation.total}")
+                        Text(
+                            modifier = Modifier.testTag(checkoutConfirmationOrder(uiState.confirmation.orderId)),
+                            text = "Pedido confirmado: ${uiState.confirmation.orderId}"
+                        )
+                        Text(
+                            modifier = Modifier.testTag(checkoutConfirmationTime(uiState.confirmation.etaMinutes)),
+                            text = "Tiempo estimado: ${uiState.confirmation.etaMinutes}"
+                        )
+                        Text(
+                            modifier = Modifier.testTag(checkoutConfirmationTotal(uiState.confirmation.total)),
+                            text = "Precio: ${uiState.confirmation.total}"
+                        )
                     }
                 }
 
@@ -164,7 +182,9 @@ fun CheckoutContentIdle(
         Button(
             onClick = onConfirm,
             enabled = uiState.canSubmit,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .testTag(CHECKOUT_CONFIRM_BUTTON)
         ) {
             Text(if (uiState.isSubmitting) "Procesando el pago..." else "Confirmar pedido")
         }
