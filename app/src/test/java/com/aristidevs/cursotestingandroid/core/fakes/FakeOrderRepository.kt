@@ -19,6 +19,6 @@ class FakeOrderRepository: OrderRepository {
     }
 
     override suspend fun placeOrder(): OrderConfirmation =
-        if(throwExceptionWhenPlaceOrder) throw IOException() else orderConfirmation
+        if(throwExceptionWhenPlaceOrder) throw IOException("error placing order") else orderConfirmation
 
 }

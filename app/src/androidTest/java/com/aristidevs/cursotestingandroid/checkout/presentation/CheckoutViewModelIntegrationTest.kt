@@ -5,7 +5,6 @@ import app.cash.turbine.ReceiveTurbine
 import app.cash.turbine.test
 import com.aristidevs.cursotestingandroid.cart.domain.repository.CartItemRepository
 import com.aristidevs.cursotestingandroid.cart.domain.usecase.GetCartSummaryUseCase
-import com.aristidevs.cursotestingandroid.checkout.domain.repository.OrderRepository
 import com.aristidevs.cursotestingandroid.checkout.domain.usecase.PlaceOrderUseCase
 import com.aristidevs.cursotestingandroid.core.MainDispatcherRule
 import com.aristidevs.cursotestingandroid.core.mockwebserver.MiniMarketApiDispatcher
@@ -78,6 +77,7 @@ class CheckoutViewModelIntegrationTest {
             mockWebServer.server.dispatcher =
                 MiniMarketApiDispatcher(
                     productJson = "product_list_default.json".asAsset(),
+                    orderConfirmationJson = "order_confirmation_default.json".asAsset()
                 )
             hilt.inject()
             cartItemRepository.clearCart()
@@ -167,7 +167,7 @@ class CheckoutViewModelIntegrationTest {
 
 
     private fun setupValidFormFields(viewModel: CheckoutViewModel) {
-        viewModel.onNameChange(USER_NAME,)
+        viewModel.onNameChange(USER_NAME)
         viewModel.onEmailChange(USER_EMAIL)
         viewModel.onAddressChange(USER_ADDRESS)
     }

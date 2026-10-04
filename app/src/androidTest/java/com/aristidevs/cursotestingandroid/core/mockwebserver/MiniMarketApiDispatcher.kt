@@ -1,6 +1,5 @@
 package com.aristidevs.cursotestingandroid.core.mockwebserver
 
-import kotlinx.serialization.SerialName
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.RecordedRequest
@@ -8,7 +7,7 @@ import okhttp3.mockwebserver.RecordedRequest
 class MiniMarketApiDispatcher(
     private val productJson: String,
     private val promoJson: String = """{"promotions":[]}""",
-    private val orderConfirmationJson: String = """{"orderId":"id12", etaMinutes: 23, total = 23.5}""",
+    private val orderConfirmationJson: String = """{}""",
 ) : Dispatcher() {
     override fun dispatch(request: RecordedRequest): MockResponse =
         when {
