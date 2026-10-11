@@ -11,11 +11,10 @@ import org.junit.Test
  * SUT: [CheckoutForm.validate], [CheckoutFormErrors.isValid], [FieldError].
  */
 class CheckoutFormTest {
-
     val validCheckoutForm = CheckoutForm(
         name = "John Smith",
         address = "C/ Mayor 3",
-        email = "my.valid.email@myemail.org"
+        email = "my.valid.email@myemail.org",
     )
 
     @Test

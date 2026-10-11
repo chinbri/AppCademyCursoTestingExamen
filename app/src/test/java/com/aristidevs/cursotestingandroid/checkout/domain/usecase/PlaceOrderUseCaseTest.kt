@@ -20,10 +20,10 @@ import org.junit.Test
 class PlaceOrderUseCaseTest {
     private fun useCase(
         orderRepository: OrderRepository = FakeOrderRepository(),
-        cartItemRepository: CartItemRepository = FakeCartItemRepository()
+        cartItemRepository: CartItemRepository = FakeCartItemRepository(),
     ) = PlaceOrderUseCase(
         orderRepository = orderRepository,
-        cartItemRepository = cartItemRepository
+        cartItemRepository = cartItemRepository,
     )
 
     @Test
@@ -39,7 +39,7 @@ class PlaceOrderUseCaseTest {
 
         // WHEN
         val result = useCase(
-            cartItemRepository = cartItemRepository
+            cartItemRepository = cartItemRepository,
         ).invoke()
 
         // THEN
@@ -56,7 +56,7 @@ class PlaceOrderUseCaseTest {
 
         // WHEN
         val result = useCase(
-            orderRepository = orderRepository
+            orderRepository = orderRepository,
         ).invoke()
 
         // THEN
@@ -81,7 +81,7 @@ class PlaceOrderUseCaseTest {
         // WHEN
         val result = useCase(
             cartItemRepository = cartItemRepository,
-            orderRepository = orderRepository
+            orderRepository = orderRepository,
         ).invoke()
 
         // THEN

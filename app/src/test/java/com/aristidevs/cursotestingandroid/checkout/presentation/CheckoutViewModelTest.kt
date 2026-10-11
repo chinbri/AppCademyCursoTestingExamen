@@ -31,7 +31,6 @@ import org.junit.Test
  * y un fake de OrderRepository que tendrás que crear.
  */
 class CheckoutViewModelTest {
-
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
@@ -49,7 +48,7 @@ class CheckoutViewModelTest {
 
         // WHEN
         val viewModel = createViewModel(
-            cartItemRepository = cartItemRepository
+            cartItemRepository = cartItemRepository,
         )
 
         // THEN
@@ -76,19 +75,21 @@ class CheckoutViewModelTest {
                 setCartItems(listOf(cartItem))
             }
             val productRepository = FakeProductRepository().apply {
-                setProducts(listOf(
-                    product {
-                        withId(productId)
-                        withName("Pan")
-                        withPrice(2.0)
-                    }
-                ))
+                setProducts(
+                    listOf(
+                        product {
+                            withId(productId)
+                            withName("Pan")
+                            withPrice(2.0)
+                        },
+                    ),
+                )
             }
 
             // WHEN
             val viewModel = createViewModel(
                 cartItemRepository = cartItemRepository,
-                productRepository = productRepository
+                productRepository = productRepository,
             )
             viewModel.onNameChange(validName)
             viewModel.onEmailChange(validEmail)
@@ -128,7 +129,6 @@ class CheckoutViewModelTest {
 
     @Test
     fun `given valid form when onConfirm succeeds then emits Success state`() = runTest(mainDispatcherRule.scheduler) {
-
         // GIVEN
 
         // WHEN
@@ -157,7 +157,7 @@ class CheckoutViewModelTest {
 
             // WHEN
             val viewModel = createViewModel(
-                orderRepository = orderRepository
+                orderRepository = orderRepository,
             )
             viewModel.onNameChange(validName)
             viewModel.onEmailChange(validEmail)
@@ -206,12 +206,11 @@ class CheckoutViewModelTest {
         productRepository: ProductRepository = FakeProductRepository(),
         promotionRepository: PromotionRepository = FakePromotionRepository(),
     ): CheckoutViewModel {
-
         val fakeClock = FakeSystemClock()
 
         val placeOrderUseCase = PlaceOrderUseCase(
             orderRepository = orderRepository,
-            cartItemRepository = cartItemRepository
+            cartItemRepository = cartItemRepository,
         )
 
         val getCartSummaryUseCase = GetCartSummaryUseCase(
@@ -219,12 +218,12 @@ class CheckoutViewModelTest {
             productRepository = productRepository,
             promotionRepository = promotionRepository,
             getPromotionForProduct = GetPromotionForProduct(),
-            clock = fakeClock
+            clock = fakeClock,
         )
 
         return CheckoutViewModel(
             placeOrderUseCase = placeOrderUseCase,
-            getCartSummaryUseCase = getCartSummaryUseCase
+            getCartSummaryUseCase = getCartSummaryUseCase,
         )
     }
 }

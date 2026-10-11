@@ -28,7 +28,6 @@ import kotlin.test.assertTrue
  * localiza nodos por texto (la pantalla aún no expone testTags) y verifica habilitación del botón.
  */
 class CheckoutScreenTest {
-
     @get:Rule
     val composeRule = createAndroidComposeRule<ComponentActivity>()
 
@@ -49,7 +48,7 @@ class CheckoutScreenTest {
                 onNameChange = onNameChange,
                 onEmailChange = onEmailChange,
                 onAddressChange = onAddressChange,
-                onConfirm = onConfirm
+                onConfirm = onConfirm,
             )
         }
     }
@@ -73,8 +72,8 @@ class CheckoutScreenTest {
                 errors = CheckoutFormErrors(),
                 isCartEmpty = true,
                 isSubmitting = false,
-                canSubmit = false
-            )
+                canSubmit = false,
+            ),
         )
 
         // THEN
@@ -92,8 +91,8 @@ class CheckoutScreenTest {
                 errors = CheckoutFormErrors(),
                 isCartEmpty = true,
                 isSubmitting = false,
-                canSubmit = true
-            )
+                canSubmit = true,
+            ),
         )
 
         // THEN
@@ -110,7 +109,7 @@ class CheckoutScreenTest {
            La actualización de si se puede o no hacer el submit depende del viewmodel
            y se debe testear ahí.
            ¿NO SERÍA ESTO UN CASO TRAMPA? :D
-        */
+         */
     }
 
     @Test
@@ -121,9 +120,9 @@ class CheckoutScreenTest {
                 confirmation = OrderConfirmation(
                     orderId = "order-id-10",
                     etaMinutes = 12,
-                    total = 54.3
-                )
-            )
+                    total = 54.3,
+                ),
+            ),
         )
 
         // THEN

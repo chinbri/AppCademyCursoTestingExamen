@@ -23,7 +23,7 @@ class CartSummaryBuilder {
         CartSummary(
             subtotal = subtotal,
             discountTotal = discountTotal,
-            finalTotal = finalTotal
+            finalTotal = finalTotal,
         )
 }
 

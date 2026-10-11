@@ -27,7 +27,6 @@ import kotlin.test.assertEquals
 @HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
 class OrderRepositoryImplTest {
-
     @get:Rule(order = 0)
     val mockWebServer = MockWebServerRule()
 
@@ -81,7 +80,7 @@ class OrderRepositoryImplTest {
     fun givenNetworkFailure_whenPlaceOrder_thenThrowsNetworkError() = runTest {
         // GIVEN
         mockWebServer.server.enqueue(
-            MockResponse().setSocketPolicy(SocketPolicy.NO_RESPONSE)
+            MockResponse().setSocketPolicy(SocketPolicy.NO_RESPONSE),
         )
 
         // WHEN

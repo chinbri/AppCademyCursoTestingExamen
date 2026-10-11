@@ -36,9 +36,9 @@ import com.aristidevs.cursotestingandroid.core.presentation.testing.UiTestTag.ch
 
 @Composable
 fun CheckoutScreen(
-    onBack: () -> Unit, viewModel: CheckoutViewModel = hiltViewModel()
+    onBack: () -> Unit,
+    viewModel: CheckoutViewModel = hiltViewModel(),
 ) {
-
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -58,7 +58,7 @@ fun CheckoutScreen(
         onNameChange = { viewModel.onNameChange(it) },
         onAddressChange = { viewModel.onAddressChange(it) },
         onEmailChange = { viewModel.onEmailChange(it) },
-        onConfirm = { viewModel.onConfirm() }
+        onConfirm = { viewModel.onConfirm() },
     )
 }
 
@@ -73,7 +73,6 @@ fun CheckoutContent(
     onAddressChange: (String) -> Unit,
     onConfirm: () -> Unit,
 ) {
-
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = { MarketTopAppBar(title = "Checkout") { onBack() } },
@@ -81,7 +80,7 @@ fun CheckoutContent(
         Box(
             Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
+                .padding(paddingValues),
         ) {
             when (uiState) {
                 CheckoutUiState.Loading -> {
@@ -94,12 +93,13 @@ fun CheckoutContent(
                             .fillMaxSize()
                             .padding(16.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
+                        verticalArrangement = Arrangement.Center,
                     ) {
                         Text(uiState.message)
                         Button(
                             modifier = Modifier.testTag(CHECKOUT_RETRY_BUTTON),
-                            onClick = { onRetry() }) {
+                            onClick = { onRetry() },
+                        ) {
                             Text("Reintentar")
                         }
                     }
@@ -111,19 +111,19 @@ fun CheckoutContent(
                             .fillMaxSize()
                             .padding(16.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
+                        verticalArrangement = Arrangement.Center,
                     ) {
                         Text(
                             modifier = Modifier.testTag(checkoutConfirmationOrder(uiState.confirmation.orderId)),
-                            text = "Pedido confirmado: ${uiState.confirmation.orderId}"
+                            text = "Pedido confirmado: ${uiState.confirmation.orderId}",
                         )
                         Text(
                             modifier = Modifier.testTag(checkoutConfirmationTime(uiState.confirmation.etaMinutes)),
-                            text = "Tiempo estimado: ${uiState.confirmation.etaMinutes}"
+                            text = "Tiempo estimado: ${uiState.confirmation.etaMinutes}",
                         )
                         Text(
                             modifier = Modifier.testTag(checkoutConfirmationTotal(uiState.confirmation.total)),
-                            text = "Precio: ${uiState.confirmation.total}"
+                            text = "Precio: ${uiState.confirmation.total}",
                         )
                     }
                 }
@@ -144,13 +144,12 @@ fun CheckoutContentIdle(
     onAddressChange: (String) -> Unit,
     onConfirm: () -> Unit,
 ) {
-
     Column(
         Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Text("Total: ${uiState.summary.finalTotal}", style = MaterialTheme.typography.titleLarge)
         OutlinedTextField(
@@ -158,21 +157,21 @@ fun CheckoutContentIdle(
             onValueChange = onNameChange,
             label = { Text("Nombre") },
             isError = uiState.errors.nameError != null,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
         OutlinedTextField(
             value = uiState.form.address,
             onValueChange = onAddressChange,
             label = { Text("Dirección") },
             isError = uiState.errors.addressError != null,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
         OutlinedTextField(
             value = uiState.form.email,
             onValueChange = onEmailChange,
             label = { Text("Email") },
             isError = uiState.errors.emailError != null,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
 
         if (uiState.isCartEmpty) {
@@ -184,11 +183,9 @@ fun CheckoutContentIdle(
             enabled = uiState.canSubmit,
             modifier = Modifier
                 .fillMaxWidth()
-                .testTag(CHECKOUT_CONFIRM_BUTTON)
+                .testTag(CHECKOUT_CONFIRM_BUTTON),
         ) {
             Text(if (uiState.isSubmitting) "Procesando el pago..." else "Confirmar pedido")
         }
     }
-
-
 }

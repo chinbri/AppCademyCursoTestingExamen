@@ -48,8 +48,10 @@ object UiTestTag {
     const val CHECKOUT_LOADING = "checkout_loading"
     const val CHECKOUT_CONFIRM_BUTTON = "checkout_confirm_button"
     const val CHECKOUT_RETRY_BUTTON = "checkout_retry_button"
-    fun checkoutConfirmationOrder(orderId: String) = "checkout_confirmation_order_$orderId"
-    fun checkoutConfirmationTime(etaMinutes: Int) = "checkout_confirmation_order_$etaMinutes"
-    fun checkoutConfirmationTotal(total: Double) = "checkout_confirmation_order_$total"
 
+    fun checkoutConfirmationOrder(orderId: String) = "checkout_confirmation_order_$orderId"
+
+    fun checkoutConfirmationTime(etaMinutes: Int) = "checkout_confirmation_order_$etaMinutes"
+
+    fun checkoutConfirmationTotal(total: Double) = "checkout_confirmation_order_$total"
 }

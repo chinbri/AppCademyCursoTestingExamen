@@ -38,7 +38,6 @@ import kotlin.test.assertTrue
 @HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
 class CheckoutViewModelIntegrationTest {
-
     private companion object {
         const val PRODUCT_ID = "p1"
         const val PRODUCT_QUANTITY = 4
@@ -77,7 +76,7 @@ class CheckoutViewModelIntegrationTest {
             mockWebServer.server.dispatcher =
                 MiniMarketApiDispatcher(
                     productJson = "product_list_default.json".asAsset(),
-                    orderConfirmationJson = "order_confirmation_default.json".asAsset()
+                    orderConfirmationJson = "order_confirmation_default.json".asAsset(),
                 )
             hilt.inject()
             cartItemRepository.clearCart()
@@ -106,7 +105,6 @@ class CheckoutViewModelIntegrationTest {
             assertTrue(idle.summary.subtotal > 0.0)
             assertTrue(idle.summary.finalTotal > 0.0)
         }
-
     }
 
     @Test
@@ -147,30 +145,26 @@ class CheckoutViewModelIntegrationTest {
 
             assertTrue(state is CheckoutUiState.Error)
         }
-
     }
 
     private fun createViewModel(): CheckoutViewModel =
         CheckoutViewModel(
             placeOrderUseCase = placeOrderUseCase,
-            getCartSummaryUseCase = getCartSummaryUseCase
+            getCartSummaryUseCase = getCartSummaryUseCase,
         )
 
     private suspend fun ReceiveTurbine<CheckoutUiState>.awaitSpecificUiState(uiStateClass: KClass<out CheckoutUiState>): CheckoutUiState {
         while (true) {
             val item = awaitItem()
-            if(item::class == uiStateClass){
+            if (item::class == uiStateClass) {
                 return item
             }
         }
     }
-
 
     private fun setupValidFormFields(viewModel: CheckoutViewModel) {
         viewModel.onNameChange(USER_NAME)
         viewModel.onEmailChange(USER_EMAIL)
         viewModel.onAddressChange(USER_ADDRESS)
     }
-
 }
-
