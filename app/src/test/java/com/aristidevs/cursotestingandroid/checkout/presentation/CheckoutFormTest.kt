@@ -12,7 +12,7 @@ import org.junit.Test
  */
 class CheckoutFormTest {
     val validCheckoutForm = CheckoutForm(
-        name = "John Smith",
+        name = "John Smithty",
         address = "C/ Mayor 3",
         email = "my.valid.email@myemail.org",
     )
