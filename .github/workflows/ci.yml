@@ -2,9 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [master]
   pull_request:
-    branches: [master]
   workflow_dispatch:
 
 concurrency:
@@ -147,7 +145,6 @@ jobs:
           arch: ${{ matrix.arch }}
           target: ${{ matrix.target }}
           force-avd-creation: false
-          emulator-options: -no-window -gpu host -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           script: ./gradlew :app:connectedDebugAndroidTest --no-daemon -Dorg.gradle.workers.max=2
       - name: Publish instrumented results
